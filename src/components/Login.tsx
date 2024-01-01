@@ -3,19 +3,20 @@ import {
   Heading,
   Input,
   Button,
-  FormControl,
-  FormLabel,
-  Switch,
-  useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
+import { useLocalState } from "../services/useLocalStorage";
 
-const Login = () => {
+interface Props {
+  isLoggedin: boolean;
+  onLogin: (state: boolean) => void;
+}
+
+const Login = ({ onLogin }: Props) => {
   const navigate = useNavigate();
-  const { toggleColorMode } = useColorMode();
   const formBackground = useColorModeValue("gray.100", "gray.700");
 
   const emailRef = useRef<HTMLInputElement>(null);
@@ -23,9 +24,28 @@ const Login = () => {
 
   const [error, setError] = useState<String>("");
 
+  let token: any;
+  const [jwt, setJwt] = useLocalState("", "jwt");
+  if (localStorage.getItem("jwt") !== null) {
+    token = localStorage.getItem("jwt");
+  }
+
+  console.log("Initial JWT is " + jwt);
+
+  useEffect(() => {
+    console.log(`JWT is ${jwt}`);
+
+    if (jwt !== "") {
+      console.log("I am going home");
+
+      navigate("/home");
+    }
+  });
+
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     console.log("Magin " + emailRef.current?.value, passwordRef.current?.value);
+
     axios
       .post(
         "http://192.168.1.201:3000/session.json",
@@ -43,11 +63,17 @@ const Login = () => {
       )
       .then((res) => {
         console.log(res);
-        localStorage.setItem("userToken", res.data.session.jwt);
+        setJwt(res.data.session.jwt);
+        onLogin(true);
+
+        //localStorage.setItem("jwt", res.data.session.jwt);
         setError("");
-        navigate("/home");
+        console.log("Navigating to Home");
+        //navigate("/home");
       })
       .catch((error) => {
+        console.log(error);
+
         setError(error.message);
       })
       .finally(() => {
@@ -87,17 +113,6 @@ const Login = () => {
             <Button type="submit" colorScheme="teal" mb={8}>
               Log In
             </Button>
-            <FormControl display="flex" alignItems="center">
-              <FormLabel htmlFor="dark_mode" mb="0">
-                Enable Dark Mode?
-              </FormLabel>
-              <Switch
-                id="dark_mode"
-                colorScheme="teal"
-                size="lg"
-                onChange={toggleColorMode}
-              />
-            </FormControl>
           </Flex>
         </form>
       </Flex>
