@@ -5,15 +5,11 @@ import {
   useColorModeValue,
   Stack,
   useColorMode,
-  Show,
   HStack,
   useDisclosure,
   IconButton,
-  Text,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon, HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import Photo from "./Photo";
-import Name from "./Name";
 
 import "./Navbar.css";
 import { NavLink } from "react-router-dom";
@@ -30,7 +26,7 @@ export default function NavBar({ loggedin }: Props) {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [jwt, setJwt] = useLocalState("", "jwt");
+  const [jwt] = useLocalState("", "jwt");
 
   console.log("Initial JWT is " + jwt);
   console.log("JWT is now " + loggedin);
@@ -40,19 +36,10 @@ export default function NavBar({ loggedin }: Props) {
       <div id="navFix">
         <Box
           bg={useColorModeValue("gray.100", "gray.900")}
-          px={9}
+          px={29}
           width={["100%"]}
         >
           <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-            <HStack w="42%">
-              <Name />
-
-              <Show breakpoint="(min-width: 1000px)">
-                {" "}
-                <Photo />
-              </Show>
-            </HStack>
-
             <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
               <HStack spacing={8} alignItems={"center"}>
                 <HStack

@@ -8,7 +8,7 @@ interface Props {
   onLogin: (state: boolean) => void;
 }
 
-const Logout = ({ isLoggedin, onLogin }: Props) => {
+const Logout = ({ onLogin }: Props) => {
   const navigate = useNavigate();
 
   let token: any;
@@ -16,7 +16,7 @@ const Logout = ({ isLoggedin, onLogin }: Props) => {
     token = localStorage.getItem("jwt");
   } else {
   }
-  const [jwt, setJwt] = useLocalState(token, "jwt");
+  const [jwt] = useLocalState(token, "jwt");
   console.log("Initial JWT is " + jwt);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const Logout = ({ isLoggedin, onLogin }: Props) => {
         //localStorage.removeItem("jwt");
       })
       .finally(() => {
-        //navigate("/login");
+        navigate("/login");
       });
   });
 

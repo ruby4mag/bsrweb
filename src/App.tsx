@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import Logout from "./components/Logout";
 import { useState } from "react";
+import Landing from "./components/Landing";
 
 function App() {
   const [uloggedin, setUloggedin] = useState(
@@ -18,6 +19,7 @@ function App() {
       <ChakraProvider>
         <NavBar loggedin={uloggedin} />
         <Routes>
+          <Route path="/" element={<Landing />}></Route>
           <Route
             path="/login"
             element={
