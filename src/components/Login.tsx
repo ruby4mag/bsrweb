@@ -10,8 +10,13 @@ import { useNavigate } from "react-router-dom";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useLocalState } from "../services/useLocalStorage";
 
-const Login = () => {
+interface Props {
+  name: String;
+  onLogin: (name: string) => void;
+}
+const Login = ({ onLogin }: Props) => {
   const navigate = useNavigate();
+
   const formBackground = useColorModeValue("gray.100", "gray.700");
 
   const emailRef = useRef<HTMLInputElement>(null);
@@ -59,6 +64,7 @@ const Login = () => {
       .then((res) => {
         console.log(res);
         setJwt(res.data.session.jwt);
+        onLogin(res.data.session.email);
 
         //localStorage.setItem("jwt", res.data.session.jwt);
         setError("");

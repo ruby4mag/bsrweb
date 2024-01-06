@@ -6,6 +6,7 @@ import {
   Stack,
   useColorMode,
   HStack,
+  Text,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
@@ -17,15 +18,17 @@ import LogoutButton from "./LogoutButton";
 
 interface Props {
   loggedin: boolean;
+  name: string;
 }
 
-export default function NavBar({ loggedin }: Props) {
+export default function NavBar({ loggedin, name }: Props) {
   const { colorMode, toggleColorMode } = useColorMode();
 
   const [jwt] = useLocalState("", "jwt");
 
   console.log("Initial JWT is " + jwt);
   console.log("JWT is now " + loggedin);
+  console.log("Magin is " + name);
 
   return (
     <>
@@ -46,6 +49,7 @@ export default function NavBar({ loggedin }: Props) {
                 id="myDIV"
               >
                 {loggedin ? <LogoutButton /> : <LoginButton />}
+                <Text>{name}</Text>
               </HStack>
             </HStack>
           </Flex>

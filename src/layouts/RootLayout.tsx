@@ -6,17 +6,23 @@ import Navbar from "../components/NavBar";
 import Sidebar from "../components/Sidebar";
 import { useState } from "react";
 
-export default function RootLayout() {
-  const [uloggedin, setUloggedin] = useState(
+interface Props {
+  name: string;
+}
+
+export default function RootLayout({ name }: Props) {
+  const [uloggedin] = useState(
     localStorage.getItem("jwt") == '""' ? false : true
   );
-  console.log("State is " + uloggedin);
+  //const [name, setName] = useState("");
+
+  console.log("State2 is " + uloggedin + name);
 
   return (
     <>
       <Grid>
         <GridItem>
-          <Navbar loggedin={uloggedin} />
+          <Navbar loggedin={uloggedin} name={name} />
         </GridItem>
       </Grid>
       <Grid templateColumns="repeat(6, 1fr)" bg="gray.50">

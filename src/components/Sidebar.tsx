@@ -12,6 +12,12 @@ export default function Sidebar() {
         </NavLink>
       </ListItem>
       <ListItem>
+        <NavLink to="tests">
+          <ListIcon as={AtSignIcon} color="white" />
+          Tests
+        </NavLink>
+      </ListItem>
+      <ListItem>
         <NavLink to="profile">
           <ListIcon as={EditIcon} color="white" />
           Profile
