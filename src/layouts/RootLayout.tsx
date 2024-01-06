@@ -14,7 +14,6 @@ export default function RootLayout({ name }: Props) {
   const [uloggedin] = useState(
     localStorage.getItem("jwt") == '""' ? false : true
   );
-  //const [name, setName] = useState("");
 
   console.log("State2 is " + uloggedin + name);
 
@@ -25,12 +24,11 @@ export default function RootLayout({ name }: Props) {
           <Navbar loggedin={uloggedin} name={name} />
         </GridItem>
       </Grid>
-      <Grid templateColumns="repeat(6, 1fr)" bg="gray.50">
+      <Grid templateColumns="repeat(8, 1fr)">
         {/* sidebar */}
         <GridItem
           as="aside"
-          colSpan={{ base: 6, lg: 2, xl: 1 }}
-          bg="purple.400"
+          colSpan={{ base: 8, lg: 1, xl: 1 }}
           minHeight={{ lg: "100vh" }}
           p={{ base: "20px", lg: "30px" }}
         >
@@ -38,7 +36,7 @@ export default function RootLayout({ name }: Props) {
         </GridItem>
 
         {/* main content & navbar */}
-        <GridItem as="main" colSpan={{ base: 6, lg: 4, xl: 5 }}>
+        <GridItem as="main" colSpan={{ base: 8, lg: 4, xl: 7 }}>
           <Outlet />
         </GridItem>
       </Grid>

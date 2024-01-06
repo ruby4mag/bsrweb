@@ -7,8 +7,15 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import Newtest from "./Newtest";
+import Alltests from "./Alltests";
+import { useState } from "react";
 
 const Tests = () => {
+  const [reload, setReload] = useState(false);
+  const onAdd = () => {
+    setReload(!reload);
+  };
+
   return (
     <>
       <Heading m="20px">Tests</Heading>
@@ -19,9 +26,11 @@ const Tests = () => {
         </TabList>
 
         <TabPanels>
-          <TabPanel>All tests here</TabPanel>
           <TabPanel>
-            <Newtest />
+            <Alltests reload={reload} />
+          </TabPanel>
+          <TabPanel>
+            <Newtest reload={reload} onTestAdd={onAdd} />
           </TabPanel>
         </TabPanels>
       </Tabs>
