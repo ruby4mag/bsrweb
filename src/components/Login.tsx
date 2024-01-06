@@ -10,12 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useLocalState } from "../services/useLocalStorage";
 
-interface Props {
-  isLoggedin: boolean;
-  onLogin: (state: boolean) => void;
-}
-
-const Login = ({ onLogin }: Props) => {
+const Login = () => {
   const navigate = useNavigate();
   const formBackground = useColorModeValue("gray.100", "gray.700");
 
@@ -38,7 +33,7 @@ const Login = ({ onLogin }: Props) => {
     if (jwt !== "") {
       console.log("I am going home");
 
-      navigate("/home");
+      navigate("/dashboard");
     }
   });
 
@@ -64,7 +59,6 @@ const Login = ({ onLogin }: Props) => {
       .then((res) => {
         console.log(res);
         setJwt(res.data.session.jwt);
-        onLogin(true);
 
         //localStorage.setItem("jwt", res.data.session.jwt);
         setError("");

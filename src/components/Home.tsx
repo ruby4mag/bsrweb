@@ -1,5 +1,13 @@
+import { useState } from "react";
+import NavBar from "./NavBar";
+
 const Home = () => {
-  return <div>Home</div>;
+  const [uloggedin, setUloggedin] = useState(
+    localStorage.getItem("jwt") == '""' ? false : true
+  );
+  console.log("State is " + uloggedin);
+
+  return <>Hello</>;
 };
 
 export default Home;
