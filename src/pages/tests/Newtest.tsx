@@ -1,5 +1,4 @@
 import { Box, Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
-import axios from "axios";
 import { useRef, useState } from "react";
 import { ActionFunctionArgs, Form, redirect } from "react-router-dom";
 import authenticatedApi from "../../services/authenticatedApi";
@@ -67,42 +66,6 @@ const Newtest = ({ onTestAdd }: Props) => {
 };
 
 export const createAction = async ({}: ActionFunctionArgs) => {
-  // const data = await request.formData();
-  // const test = {
-  //   name: data.get("testName"),
-  //   targetUrl: data.get("targetUrl"),
-  // };
-
-  // axios
-  //   .post(
-  //     "http://192.168.1.201:3000/session.json",
-  //     {
-  //       session: test,
-  //     },
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     }
-  //   )
-  //   .then((res) => {
-  //     console.log(res);
-
-  //     //localStorage.setItem("jwt", res.data.session.jwt);
-
-  //     console.log("Navigating to Home");
-  //     //navigate("/home");
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-
-  //     //setError(error.message);
-  //   })
-  //   .finally(() => {
-  //     //navigate("/home");
-  //   });
-  // console.log(test);
-
   return redirect("/tests");
 };
 

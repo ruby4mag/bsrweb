@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import authenticatedApi from "../../services/authenticatedApi";
+import DataTable from "react-data-table-component";
+
+import { customStyles } from "../../styles/tablestyles";
+import Testdetail from "./Testdetail";
 
 interface Test {
-  id: string;
+  id: string | undefined;
   testName: string;
   targetUrl: string;
 }
@@ -11,7 +15,37 @@ interface Props {
 }
 
 function Alltests({ reload }: Props) {
+  const columns = [
+    {
+      name: "Test Name",
+      selector: (row: { testName: any }) => row.testName,
+      sortable: true,
+    },
+    {
+      name: "URL",
+      selector: (row: { targetUrl: any }) => row.targetUrl,
+      sortable: true,
+    },
+    {
+      name: "URL",
+
+      sortable: true,
+      cell: (row: { id: string | undefined }) => (
+        <button onClick={(e) => clickHandler(e, row.id)}>Action</button>
+      ),
+    },
+  ];
+
+  const clickHandler = (state: any, id: string | undefined) => {
+    state.preventDefault();
+    setTestid(id);
+    console.log("Row Id", id);
+  };
+  const [testid, setTestid] = useState("");
+
   const [tests, setTests] = useState<Test[]>([]);
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     authenticatedApi
@@ -20,6 +54,7 @@ function Alltests({ reload }: Props) {
         // Handle the response
         setTests(response.data);
         console.log(response.data);
+        setLoading(false);
       })
       .catch((error) => {
         // Handle errors
@@ -27,29 +62,17 @@ function Alltests({ reload }: Props) {
       });
   }, [reload]);
 
-  //     axios
-  //       .get("http://192.168.1.201:3000/urltests.json")
-  //       .then(function (response) {
-  //         setTests(response.data);
-  //         // handle success
-  //         console.log(response);
-  //       })
-  //       .catch(function (error) {
-  //         // handle error
-  //         console.log(error);
-  //       })
-  //       .finally(function () {
-  //         // always executed
-  //       });
-  //   }, [reload]);
-
   return (
     <>
-      {tests.map((test) => (
-        <li key={test.id}>
-          {test.testName} {test.targetUrl}
-        </li>
-      ))}
+      <DataTable
+        customStyles={customStyles}
+        theme="dark"
+        columns={columns}
+        progressPending={loading}
+        data={tests}
+        pagination
+      />
+      <Testdetail testid={testid} />
     </>
   );
 }
