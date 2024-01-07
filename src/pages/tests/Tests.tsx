@@ -1,4 +1,6 @@
 import {
+  Box,
+  Flex,
   Heading,
   Tab,
   TabList,
@@ -18,8 +20,12 @@ const Tests = () => {
 
   return (
     <>
-      <Heading m="20px">Tests</Heading>
-      <Tabs m="40px" p="20px" colorScheme="purple">
+      <Flex justifyContent={"left"}>
+        <Heading ml="20px" mt="10px">
+          Web Tests
+        </Heading>
+      </Flex>
+      <Tabs p="20px" colorScheme="purple">
         <TabList>
           <Tab>All Tests</Tab>
           <Tab>New Test</Tab>

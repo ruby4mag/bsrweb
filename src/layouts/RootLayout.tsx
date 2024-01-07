@@ -36,7 +36,7 @@ export default function RootLayout({ name }: Props) {
         </GridItem>
 
         {/* main content & navbar */}
-        <GridItem as="main" colSpan={{ base: 8, lg: 4, xl: 7 }}>
+        <GridItem as="main" colSpan={{ base: 8, lg: 7, xl: 7 }}>
           <Outlet />
         </GridItem>
       </Grid>
